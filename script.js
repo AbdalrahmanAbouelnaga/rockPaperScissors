@@ -1,25 +1,49 @@
-const plays = ["Rock", "Paper", "scissors"];
-function computerplays() {
-    for (i=0 ; i<=14; i++) {
-    let player = parseInt(prompt("Choose either 1.Rock 2.Paper or 3.Scissors"),10)-1
-    let playerChoice = plays[(player)]
-     let computerChoiceNum = Math.floor(Math.random()*plays.length)
-    let computerChoice = plays[computerChoiceNum]
-    if (player===computerChoiceNum) {
-        console.log("It's a tie. you both chose "+playerChoice+".")
+const choices = document.querySelectorAll("button")
+const plays = ["rock", "paper", "scissors"]
+const result = document.createElement("div")
+result.classList.add("result")
+let playerWins = 0
+let computerWins = 0
+const score = document.createElement("div")
+function playRound() {
+    const player = this.getAttribute('data-key')
+    const computerchoice = Math.floor(Math.random()*plays.length)
+    const computer = plays[computerchoice]
+    const container = document.querySelector(".container")
+    result.textContent = ""
+    if (player===computer) {
+        result.textContent = "It's a tie. you both chose "+player+"."
     }
-    else if (player===0 & computerChoiceNum===2) {
-        console.log("Congrats, "+playerChoice+" beats "+computerChoice+".")
+    else if (player===plays[0] & computer===plays[2]) {
+        result.textContent = "Congrats, "+player+" beats "+computer+"."
+        playerWins++
     }
-    else if (player===2 & computerChoiceNum===1) {
-        console.log("Congrats, "+playerChoice+" beats "+computerChoice+".")
+    else if (player===plays[2] & computer===plays[1]) {
+        result.textContent ="Congrats, "+player+" beats "+computer+"."
+        playerWins++
     }
-    else if (player===1 & computerChoiceNum===0) {
-        console.log("Congrats, "+playerChoice+" beats "+computerChoice+".")
+    else if (player===plays[1] & computer===plays[0]) {
+        result.textContent = "Congrats, "+player+" beats "+computer+"."
+        playerWins++
     }
     else {
-        console.log("You just lost to a machine. "+computerChoice+" beats "+playerChoice+".")
+        result.textContent = "You just lost to a machine. "+computer+" beats "+player+"."
+        computerWins++
     }
+    if (playerWins==5){
+        score.textContent = "You won!"
+        playerWins = 0
+        computerWins = 0
+    }
+    else if (computerWins==5) {
+        score.textContent = "You lost!"
+        playerWins = 0
+        computerWins = 0
+    }
+    else {
+    score.textContent = playerWins +" | "+ computerWins
+    }
+    container.appendChild(result)
+    container.appendChild(score)
 }
-}
-computerplays()
+choices.forEach(choice => choice.addEventListener("click",playRound))

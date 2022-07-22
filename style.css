@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+  min-width: 100vw;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+}
+
+.choices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+}
+.clicked {
+    color: red;
+    background-color: blue;
+}
